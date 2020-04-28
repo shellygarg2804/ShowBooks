@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ShowBooks</string>
+    <string name="No_Internet">No Internet Connection. Try Again!!! </string>
+    <string name="no_bookResult">No Results Found</string>
+</resources>
