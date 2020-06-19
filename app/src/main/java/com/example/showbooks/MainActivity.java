@@ -52,7 +52,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     @Override
     public Loader<ArrayList<book>> onCreateLoader(int i,Bundle bundle) {
-        Log.e(LOG_TAG,"New Loader Created");
+        Log.e("URL PASSED",GOOGLE_BOOKS_URL);
+
         return new Loaderclass.BooksLoader(this,GOOGLE_BOOKS_URL);
     }
 
@@ -90,6 +91,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
         Bundle SearchBundle= getIntent().getExtras();
         String searchQuery= SearchBundle.getString("searchQuery");
+
         if(loaderManager.getLoader(Books_unique_loader_id)!=null){
             loaderManager.destroyLoader(Books_unique_loader_id);
         }
@@ -114,6 +116,8 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
         else {
                 // appending url according to the search text entered by user
+
+                GOOGLE_BOOKS_URL= "https://www.googleapis.com/books/v1/volumes?";
                 Uri base= Uri.parse(GOOGLE_BOOKS_URL);
                 Uri.Builder uribuilder= base.buildUpon();
                 uribuilder.appendQueryParameter("q",searchQuery);
@@ -149,6 +153,10 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        adapter.clear();
+        startActivity(new Intent(MainActivity.this,search_bar_Activity.class));
+    }
 }
